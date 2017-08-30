@@ -77,21 +77,60 @@ void TargerGearDetector(void)
      * (H7 or H8) and H6: shift forward
      */
     
-    if ( H1_GetValue() == 1 || H2_GetValue() == 1 ) {
-    
+    if ( ( H1_GetValue() == 0 || H2_GetValue() == 0 ) && ( H3_GetValue() == 1 || H4_GetValue() == 1 ) ) {
+      //shift lock
     }
-    if ( H3_GetValue() == 1 || H4_GetValue() == 1 ) {
+    if ( H3_GetValue() == 0 || H4_GetValue() == 0 ) {
         if ( ( H7_GetValue() == 1 || H8_GetValue() == 1 ) && H5_GetValue() == 1 ) {
-            GearCount++;
-            if(GearCount > GearThreshold){
-            }
+			GearCount++;
+			if(GearCount > GearThreshold){
+				if(Flaggear.Gear__1 == 1){ 
+					GearLatchCount++;
+					//     GearStatus = Latch_Status; 
+				} 
+			}
+			if(GearStatus != Finish_Status){
+				OldGear = GearPosition;
+				
+				GearStatus = GetNew_Status;
+
+				GearLatchCount = 0;
+				GearCount = 0;
+
+				Flaggear.Gear_0 = 0;            
+				Flaggear.Gear_1 = 0; 
+				Flaggear.Gear__1 = 1;				
+				Flaggear.Gear_Fail = 0;            
+			}
         }
         else
             if ( ( H7_GetValue() == 1 || H8_GetValue() == 1 ) && H6_GetValue() == 1 ) {
-              GearCount++;
-              if ( GearCount > GearThreshold ) {
-              }                
+				GearCount++;
+				if(GearCount > GearThreshold){
+					if(Flaggear.Gear_1 == 1){ 
+						GearLatchCount++;
+						//     GearStatus = Latch_Status; 
+					} 
+				}
+				if(GearStatus != Finish_Status){
+					OldGear = GearPosition;
+
+					GearStatus = GetNew_Status;
+
+					GearLatchCount = 0;
+					GearCount = 0;
+
+					Flaggear.Gear_0 = 0;            
+					Flaggear.Gear_1 = 1; 
+					Flaggear.Gear__1 = 0;				
+					Flaggear.Gear_Fail = 0;            
+				}
             }
+			else {
+				GearStatus = Release_Status;
+				GearCount = 0;
+			}
+		GearFailCount = 0;
     }
     
     if(H1_GetValue() == 1 && H2_GetValue() == 1 && H3_GetValue() == 0 && H4_GetValue() == 0 && H5_GetValue() == 1 && H6_GetValue() == 0){

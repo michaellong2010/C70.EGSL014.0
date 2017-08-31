@@ -70,10 +70,17 @@
 unsigned int TimeCount = 0, ErrCount = 0, DutyCount = 0, i = 0, RecoveryCount = 0, ReleaseCount = 0, EstResult, ESTTxCount = 0, PButtonCount = 0;
 uCAN_MSG rxMessage, txMessage;
 
-#define             EST_ID                              0x131
+#define             EST_ID                              0x35C
 #define             TCU_ID                              0x151
 #define             APA_ID                              0x310
-#define             Tester_DiagPhysRegToEST_ID             0x76E
+/*20170831 added by michael*/
+#define             DOOR_BRAKE_ID                       0x12D
+#define             POWER_ID                            0x341
+#define             CHARGER_ID                          0x055
+#define             SPEED_SENSOR_ID                     0x121
+#define             TCU_STATUS_ID                       0x242
+
+#define             Tester_DiagPhysRegToEST_ID           0x76E
 #define             EST_DiagResp_ID                      0x7AE
 #define             Tester_DiagFuncReg_ID                 0x7DF
 

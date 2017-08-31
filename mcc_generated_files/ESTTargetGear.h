@@ -160,6 +160,23 @@ typedef enum gearposition{
 };
 volatile enum gearposition GearPosition;
 
+//misc peripheral data
+typedef union meta_data_t {
+  struct EGSL_status_t {
+  	unsigned char gear_function_status: 1;  //0: normal; 1: malfunction
+  	unsigned char park_indicator: 1;  //0: off; 1: on
+  	unsigned char gear_decision: 4;  //xxxx: DNRP
+  	unsigned char reserve1: 2;
+	unsigned char gear_recognition: 3;  //0: none; 1: P; 2: R; 3: N; 4: D
+  	unsigned char reserve2: 3;
+	unsigned char gear_shift_alarm: 1;  //0: normal; 1: alarm
+	unsigned char gear_malfunction: 2;  //1: R&D low level; 2: R low & N high; 3: D low & N high
+	unsigned char gear_malfunction:
+  	unsigned char reserve2: 35;
+  	unsigned char checksum: 8;
+  } egsl_status;
+};
+
 // EST Bit Function Specification Byte0
 // Bit 0 Fault
 //      0x0: normal

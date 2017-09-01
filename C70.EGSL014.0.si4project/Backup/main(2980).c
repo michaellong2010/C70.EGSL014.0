@@ -81,17 +81,6 @@ void main(void)
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
-
-    //P_lamp_ctrl_SetLow();
-    //Flaggear.shift_lock = 1;
-    while (1) {
-        TargerGearDetector();
-        if ( shift_lock == 1 )
-            P_lamp_ctrl_SetLow();
-        else
-            P_lamp_ctrl_SetHigh();
-        __delay_ms(100);
-    }
     
     rxMessage.frame.idType = 0;
     rxMessage.frame.id = 0;

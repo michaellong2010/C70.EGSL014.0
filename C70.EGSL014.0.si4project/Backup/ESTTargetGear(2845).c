@@ -76,90 +76,24 @@ void TargerGearDetector(void)
      * (H7 or H8) and H5: shift back
      * (H7 or H8) and H6: shift forward
      */
-#if 0
-   if ( ( H1_GetValue() == 0 || H2_GetValue() == 0 ) && ( H3_GetValue() == 1 || H4_GetValue() == 1 ) ) {
-     shift_lock = 1;
-   }
-   else {
-      //shift_lock = 0;
-      if ( H3_GetValue() == 0 || H4_GetValue() == 0 ) {
-        //shift_lock = 0;
-          if ( ( H7_GetValue() == 0 || H8_GetValue() == 0 ) && H5_GetValue() == 0 ) {
-            shift_lock = 0;
-          }
-          else
-              if ( ( H7_GetValue() == 0 || H8_GetValue() == 0 ) && H6_GetValue() == 0 ) {
-                  shift_lock = 0;
-              }
-      }
-   }
-#endif  //test hall sensor only   
     
-    if ( ( H1_GetValue() == 0 || H2_GetValue() == 0 ) && ( H3_GetValue() == 1 || H4_GetValue() == 1 ) ) {
-      //shift lock
-      	Flaggear.shift_lock = 1;
+    if ( H1_GetValue() == 1 || H2_GetValue() == 1 ) {
+    
     }
-	else
-    if ( H3_GetValue() == 0 || H4_GetValue() == 0 ) {
+    if ( H3_GetValue() == 1 || H4_GetValue() == 1 ) {
         if ( ( H7_GetValue() == 1 || H8_GetValue() == 1 ) && H5_GetValue() == 1 ) {
-			GearCount++;
-			if(GearCount > GearThreshold){
-				if(Flaggear.Gear__1 == 1){ 
-					GearLatchCount++;
-					//     GearStatus = Latch_Status; 
-				} 
-			}
-			if(GearStatus != Finish_Status){
-				OldGear = GearPosition;
-				
-				GearStatus = GetNew_Status;
-
-				GearLatchCount = 0;
-				GearCount = 0;
-
-				Flaggear.Gear_0 = 0;            
-				Flaggear.Gear_1 = 0; 
-				Flaggear.Gear__1 = 1;				
-				Flaggear.Gear_Fail = 0;
-				Flaggear.shift_lock = 0;
-			}
+            GearCount++;
+            if(GearCount > GearThreshold){
+            }
         }
         else
             if ( ( H7_GetValue() == 1 || H8_GetValue() == 1 ) && H6_GetValue() == 1 ) {
-				GearCount++;
-				if(GearCount > GearThreshold){
-					if(Flaggear.Gear_1 == 1){ 
-						GearLatchCount++;
-						//     GearStatus = Latch_Status; 
-					} 
-				}
-				if(GearStatus != Finish_Status){
-					OldGear = GearPosition;
-
-					GearStatus = GetNew_Status;
-
-					GearLatchCount = 0;
-					GearCount = 0;
-
-					Flaggear.Gear_0 = 0;            
-					Flaggear.Gear_1 = 1; 
-					Flaggear.Gear__1 = 0;				
-					Flaggear.Gear_Fail = 0;
-					Flaggear.shift_lock = 0;
-				}
+              GearCount++;
+              if ( GearCount > GearThreshold ) {
+              }                
             }
-			else {
-				GearStatus = Release_Status;				
-				Flaggear.Gear_1 = 0; 
-				Flaggear.Gear__1 = 0;				
-				//Flaggear.shift_lock = 1;
-				GearCount = 0;
-			}
-		GearFailCount = 0;
     }
-
-
-#if 0    
+    
     if(H1_GetValue() == 1 && H2_GetValue() == 1 && H3_GetValue() == 0 && H4_GetValue() == 0 && H5_GetValue() == 1 && H6_GetValue() == 0){
         GearCount++;
         if(GearCount > GearThreshold){
@@ -492,73 +426,12 @@ void TargerGearDetector(void)
         else
             Flaggear.GearLatch = 0;
   //  }
-#endif    
+    
 }
 
 void TargetGearJudge(void)
 {
-	if(GearStatus == GetNew_Status){ 
-		GearStatus = Finish_Status;
-		switch(GearPosition){
-		case TCU_Position_P:
-			if( Flaggear.shift_lock == 0){
-				if( Flaggear.Gear_1 ){ 
-					EST_Byte0.TargetGear = EST_GEAR_N;
-					EST_Byte0.Fault = EST_GEAR_Normal;
-				}
-				else
-					if( Flaggear.Gear__1 ){ 
-						EST_Byte0.TargetGear = EST_GEAR_N;
-						EST_Byte0.Fault = EST_GEAR_Normal;
-					}
-			}				
-			break;
-
-		case TCU_Position_R:
-			if( Flaggear.shift_lock == 0){
-				if( Flaggear.Gear_1 ){ 
-					EST_Byte0.TargetGear = EST_GEAR_N;
-					EST_Byte0.Fault = EST_GEAR_Normal;
-				}
-				else
-					if( Flaggear.Gear__1 ){ 
-						EST_Byte0.TargetGear = EST_GEAR_D;
-						EST_Byte0.Fault = EST_GEAR_Normal;
-					}
-			}				
-			break;
-
-		case TCU_Position_N:
-			if( Flaggear.shift_lock == 0){
-				if( Flaggear.Gear_1 ){ 
-					EST_Byte0.TargetGear = EST_GEAR_R;
-					EST_Byte0.Fault = EST_GEAR_Normal;
-				}
-				else
-					if( Flaggear.Gear__1 ){ 
-						EST_Byte0.TargetGear = EST_GEAR_D;
-						EST_Byte0.Fault = EST_GEAR_Normal;
-					}
-			}				
-			break;
-
-		case TCU_Position_D:
-			if( Flaggear.shift_lock == 0){
-				if( Flaggear.Gear_1 ){ 
-					EST_Byte0.TargetGear = EST_GEAR_R;
-					EST_Byte0.Fault = EST_GEAR_Normal;
-				}
-				else
-					if( Flaggear.Gear__1 ){ 
-						EST_Byte0.TargetGear = EST_GEAR_N;
-						EST_Byte0.Fault = EST_GEAR_Normal;
-					}
-			}				
-			break;
-		}
-    }
-        
-#if 0    
+    
     if(Flaggear.Gear_2 == 1 && GearStatus == GetNew_Status){
         NewGear = GearPosition;
         if(OldGear != NewGear){
@@ -701,7 +574,6 @@ void TargetGearJudge(void)
             
         }
     }    
-#endif
 }
 
 

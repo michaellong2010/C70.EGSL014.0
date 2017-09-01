@@ -135,12 +135,9 @@ typedef union flaggear {
         unsigned char Gear_Fail:1;
         unsigned char GearLatch:1;
         unsigned char re:2;
-        
-        unsigned char shift_lock;
     };    
 };
-union flaggear Flaggear;
-unsigned int shift_lock = 1;
+volatile union flaggear Flaggear;
 
 
 typedef enum Status{

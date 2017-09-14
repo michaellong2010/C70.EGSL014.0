@@ -167,11 +167,7 @@ void main(void)
             }*/
             
             if ( P_Button_GetValue() == 1 ) {
-			  if ( Flag2.PButton == 1 ) {
-                Flag2.PButton = 0;
-			    EST_Byte0.TargetGear = EST_GEAR_P;
-			    GearPosition = TCU_Position_P;
-			  }
+              Flag2.PButton = 0;
               Flag2.Release = 1;
               PLockCount = 0;
             }

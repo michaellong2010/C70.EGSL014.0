@@ -67,7 +67,7 @@
 
 
 
-unsigned int TimeCount = 0, ErrCount = 0, DutyCount = 0, i = 0, RecoveryCount = 0, ReleaseCount = 0, EstResult, ESTTxCount = 0, PButtonCount = 0, BlinkCount = 0, ToggleCount = 0;
+unsigned int TimeCount = 0, ErrCount = 0, DutyCount = 0, i = 0, RecoveryCount = 0, ReleaseCount = 0, EstResult, ESTTxCount = 0, PButtonCount = 0;
 uCAN_MSG rxMessage, txMessage;
 
 #define             EST_ID                              0x131

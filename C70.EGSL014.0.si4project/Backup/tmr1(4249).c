@@ -215,59 +215,48 @@ void TMR1_DefaultInterruptHandler(void){
         TimeCount++;         
     } 
 
+	BlinkCount++;
 	switch ( GearPosition ) {
-	  case TCU_Position_P:
-	     P_lamp_ctrl_SetHigh ();
-	     break;
 	  case TCU_Position_R:
 	  	 remainder = BlinkCount % 50;
- 		 if ( remainder == 0 )
-		 	ToggleCount++;
-		 if ( ToggleCount < 1 ) {
 		 if ( remainder == 1 )
 		   P_lamp_ctrl_SetHigh ();
 		 else
 			if ( remainder == 25 )
 		 	  P_lamp_ctrl_SetLow ();
-		 }
-		 else
-		 	if ( ToggleCount == 4 )
- 			  ToggleCount = 0;
-	     break;
+			
+	  	 break;
 
 	  case TCU_Position_N:
-	  	 remainder = BlinkCount % 50;
- 		 if ( remainder == 0 )
-		 	ToggleCount++;
-		 if ( ToggleCount < 2 ) {
+	  	 remainder = BlinkCount % 100;
 		 if ( remainder == 1 )
 		   P_lamp_ctrl_SetHigh ();
 		 else
-			if ( remainder == 25 )
+			if ( remainder == 50 )
 		 	  P_lamp_ctrl_SetLow ();
-		 }
-		 else
-		 	if ( ToggleCount == 5 )
- 			  ToggleCount = 0;
-	     break;
+			
+	  	 break;
 
   	  case TCU_Position_D:
-	  	 remainder = BlinkCount % 50;
- 		 if ( remainder == 0 )
-		 	ToggleCount++;
-		 if ( ToggleCount < 3 ) {
+	  	 remainder = BlinkCount % 200;
+	     if ( ToggleCount < 3 ) {
 		 if ( remainder == 1 )
 		   P_lamp_ctrl_SetHigh ();
 		 else
-			if ( remainder == 25 )
+			if ( remainder == 100 )
 		 	  P_lamp_ctrl_SetLow ();
-		 }
+			ToggleCount++;
+	     }
 		 else
-		 	if ( ToggleCount == 6 )
- 			  ToggleCount = 0;
+		 	if ( remainder == 0 )
+				ToggleCount++;
+
+		 if ( ToggleCount > 3 )
+		 	ToggleCount = 0;
+
+
 	     break;
 	}
-	BlinkCount++;
 }
 
 /**

@@ -136,10 +136,10 @@ typedef union flaggear {
         unsigned char GearLatch:1;
         unsigned char re:2;
         
-        unsigned char shift_lock:1;
+        unsigned char shift_lock;
     };    
 };
-volatile union flaggear Flaggear;
+union flaggear Flaggear;
 unsigned int shift_lock = 1;
 
 

@@ -185,8 +185,6 @@ void TMR1_DefaultInterruptHandler(void){
     // add your TMR1 interrupt custom code
     // or set custom function using TMR1_SetInterruptHandler()
     // 10ms per cycle
-    int remainder = 0;
-	
     ESTTxCount++;
     if(ESTTxCount > ESTTXCOUNT){        // 50ms per cycle
         ESTTxCount = 0;
@@ -214,60 +212,6 @@ void TMR1_DefaultInterruptHandler(void){
     if(flag.SLEEP == 1){
         TimeCount++;         
     } 
-
-	switch ( GearPosition ) {
-	  case TCU_Position_P:
-	     P_lamp_ctrl_SetHigh ();
-	     break;
-	  case TCU_Position_R:
-	  	 remainder = BlinkCount % 50;
- 		 if ( remainder == 0 )
-		 	ToggleCount++;
-		 if ( ToggleCount < 1 ) {
-		 if ( remainder == 1 )
-		   P_lamp_ctrl_SetHigh ();
-		 else
-			if ( remainder == 25 )
-		 	  P_lamp_ctrl_SetLow ();
-		 }
-		 else
-		 	if ( ToggleCount == 4 )
- 			  ToggleCount = 0;
-	     break;
-
-	  case TCU_Position_N:
-	  	 remainder = BlinkCount % 50;
- 		 if ( remainder == 0 )
-		 	ToggleCount++;
-		 if ( ToggleCount < 2 ) {
-		 if ( remainder == 1 )
-		   P_lamp_ctrl_SetHigh ();
-		 else
-			if ( remainder == 25 )
-		 	  P_lamp_ctrl_SetLow ();
-		 }
-		 else
-		 	if ( ToggleCount == 5 )
- 			  ToggleCount = 0;
-	     break;
-
-  	  case TCU_Position_D:
-	  	 remainder = BlinkCount % 50;
- 		 if ( remainder == 0 )
-		 	ToggleCount++;
-		 if ( ToggleCount < 3 ) {
-		 if ( remainder == 1 )
-		   P_lamp_ctrl_SetHigh ();
-		 else
-			if ( remainder == 25 )
-		 	  P_lamp_ctrl_SetLow ();
-		 }
-		 else
-		 	if ( ToggleCount == 6 )
- 			  ToggleCount = 0;
-	     break;
-	}
-	BlinkCount++;
 }
 
 /**

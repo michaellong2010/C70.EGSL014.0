@@ -96,6 +96,7 @@ void TargerGearDetector(void)
     
 #if 1
     if ( ( H1_GetValue() == 0 || H2_GetValue() == 0 ) && ( H3_GetValue() == 1 || H4_GetValue() == 1 ) ) {
+      //shift lock
       Flaggear.shift_lock = 1;
     }
 	else
@@ -109,7 +110,7 @@ void TargerGearDetector(void)
 				  Flaggear.Gear_1 = 0;
 				  Flaggear.Gear__1 = 1;
                 }
-                Flaggear.shift_lock = 0;
+              
 			}
 
 			/*if(GearStatus != Finish_Status){
@@ -131,13 +132,10 @@ void TargerGearDetector(void)
             if ( ( H7_GetValue() == 0 || H8_GetValue() == 0 ) && H6_GetValue() == 0 ) {
 				GearCount++;
 				if ( GearCount > GearThreshold ) {
-                  if ( GearStatus == Release_Status ) {
-                    GearStatus = GetNew_Status;
-  				    Flaggear.Gear_0 = 0;
-				    Flaggear.Gear_1 = 1;
-				    Flaggear.Gear__1 = 0;
-                  }
-                  Flaggear.shift_lock = 0;
+                  GearStatus = GetNew_Status;
+  				  Flaggear.Gear_0 = 0;
+				  Flaggear.Gear_1 = 1;
+				  Flaggear.Gear__1 = 0;
 				}
                 
 
@@ -165,9 +163,8 @@ void TargerGearDetector(void)
                 //P_lamp_ctrl_SetLow();
 				/*Flaggear.Gear_1 = 0; 
 				Flaggear.Gear__1 = 0;				
-				Flaggear.shift_lock = 1;
+				//Flaggear.shift_lock = 1;
 				GearCount = 0;*/
-                Flaggear.shift_lock = 1;
 			}
     }
 #endif
@@ -518,13 +515,11 @@ void TargetGearJudge(void)
 				if( Flaggear.Gear_1 ){ 
 					EST_Byte0.TargetGear = EST_GEAR_N;
 					EST_Byte0.Fault = EST_GEAR_Normal;
-				    GearPosition = TCU_Position_N;
 				}
 				else
 					if( Flaggear.Gear__1 ){ 
 						EST_Byte0.TargetGear = EST_GEAR_N;
 						EST_Byte0.Fault = EST_GEAR_Normal;
-						GearPosition = TCU_Position_N;
 					}
 			}				
 			break;
@@ -532,15 +527,13 @@ void TargetGearJudge(void)
 		case TCU_Position_R:
 			if( Flaggear.shift_lock == 0){
 				if( Flaggear.Gear_1 ){ 
-					EST_Byte0.TargetGear = EST_GEAR_R;
+					EST_Byte0.TargetGear = EST_GEAR_N;
 					EST_Byte0.Fault = EST_GEAR_Normal;
-				    GearPosition = TCU_Position_R;
 				}
 				else
 					if( Flaggear.Gear__1 ){ 
-						EST_Byte0.TargetGear = EST_GEAR_N;
+						EST_Byte0.TargetGear = EST_GEAR_D;
 						EST_Byte0.Fault = EST_GEAR_Normal;
-					    GearPosition = TCU_Position_N;
 					}
 			}				
 			break;
@@ -550,13 +543,11 @@ void TargetGearJudge(void)
 				if( Flaggear.Gear_1 ){ 
 					EST_Byte0.TargetGear = EST_GEAR_R;
 					EST_Byte0.Fault = EST_GEAR_Normal;
-				    GearPosition = TCU_Position_R;
 				}
 				else
 					if( Flaggear.Gear__1 ){ 
 						EST_Byte0.TargetGear = EST_GEAR_D;
 						EST_Byte0.Fault = EST_GEAR_Normal;
-					    GearPosition = TCU_Position_D;
 					}
 			}				
 			break;
@@ -564,15 +555,13 @@ void TargetGearJudge(void)
 		case TCU_Position_D:
 			if( Flaggear.shift_lock == 0){
 				if( Flaggear.Gear_1 ){ 
-					EST_Byte0.TargetGear = EST_GEAR_N;
+					EST_Byte0.TargetGear = EST_GEAR_R;
 					EST_Byte0.Fault = EST_GEAR_Normal;
-				    GearPosition = TCU_Position_N;
 				}
 				else
 					if( Flaggear.Gear__1 ){ 
-						EST_Byte0.TargetGear = EST_GEAR_D;
+						EST_Byte0.TargetGear = EST_GEAR_N;
 						EST_Byte0.Fault = EST_GEAR_Normal;
-					    GearPosition = TCU_Position_D;
 					}
 			}				
 			break;

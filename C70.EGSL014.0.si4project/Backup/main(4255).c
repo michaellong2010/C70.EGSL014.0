@@ -125,7 +125,6 @@ void main(void)
     Flag2.all = 0;
     Flag2.Release = 1;
     EST_Byte0.TargetGear = EST_GEAR_P; 
-    GearPosition = TCU_Position_P;
     __delay_ms(10);
     while (1)
     {
@@ -167,11 +166,7 @@ void main(void)
             }*/
             
             if ( P_Button_GetValue() == 1 ) {
-			  if ( Flag2.PButton == 1 ) {
-                Flag2.PButton = 0;
-			    EST_Byte0.TargetGear = EST_GEAR_P;
-			    GearPosition = TCU_Position_P;
-			  }
+              Flag2.PButton = 0;
               Flag2.Release = 1;
               PLockCount = 0;
             }
@@ -189,10 +184,10 @@ void main(void)
                 ReleaseCount = 0;                    
             }
 
-            /*if ( Flag2.PButton == 0 )
+            if ( Flag2.PButton == 0 )
 			  	P_lamp_ctrl_SetLow();
 			  else
-			     P_lamp_ctrl_SetHigh();*/
+			     P_lamp_ctrl_SetHigh();            
 #if 0
             if(Shift_Lock_GetValue() == 0){
                 EST_Byte0.UnlockStatus = ShiftLock_UnLock;   // unlock             
@@ -273,7 +268,7 @@ void main(void)
 
 void TCUGearPosition(void)
 {
-//  GearPosition = TCU_Position_R;
+  GearPosition = TCU_Position_D;
 #if 0
     if(TCU_Byte1.TrsmStGearLvr == TCU_GEAR_P){         // 0x0 Gear P
         GearPosition = TCU_Position_P;

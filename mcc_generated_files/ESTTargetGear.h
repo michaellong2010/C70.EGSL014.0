@@ -61,11 +61,12 @@ void APAMode(void);
 void TCUGearLED(void);
 void CAN_BUSRecovery(void);
 
-unsigned int GearCount = 0, GearFailCount = 0,GearLatchCount = 0, EstAliveCount = 0, PLockCount = 0;
+unsigned int GearCount = 0, N_GearCount = 0, GearFailCount = 0,GearLatchCount = 0, EstAliveCount = 0, PLockCount = 0;
 unsigned char NewGear = 0, OldGear = 0;
 
 #define             TIME_60S                                        6000
 #define             GearThreshold                                   20          // 200ms
+#define             N_GearThreshold                                 60          // 600ms
 #define             GearThreshold_11                                300          // 1000ms
 #define             GearLatchThreshold                              1200        //1miniute
 #define             PButtonLatchThreshold                            6000        //1miniute

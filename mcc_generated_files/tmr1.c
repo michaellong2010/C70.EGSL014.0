@@ -214,7 +214,7 @@ void TMR1_DefaultInterruptHandler(void){
     if(flag.SLEEP == 1){
         TimeCount++;         
     } 
-
+#if 1
 	switch ( GearPosition ) {
 	  case TCU_Position_P:
 	     P_lamp_ctrl_SetHigh ();
@@ -268,6 +268,7 @@ void TMR1_DefaultInterruptHandler(void){
 	     break;
 	}
 	BlinkCount++;
+#endif
 }
 
 /**

@@ -64,7 +64,7 @@
 #pragma config BORPWR = ZPBORMV    // BORMV Power level->ZPBORMV instead of BORMV is selected
 
 // CONFIG2H
-#pragma config WDTEN = NOSLP    // Watchdog Timer->WDT enabled only while device is active and disabled in Sleep mode; SWDTEN bit disabled
+#pragma config WDTEN = OFF    // Watchdog Timer->WDT disabled in hardware; SWDTEN bit disabled
 #pragma config WDTPS = 8    // Watchdog Postscaler->1:8
 
 // CONFIG3H

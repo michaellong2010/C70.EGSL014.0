@@ -130,7 +130,7 @@ void main(void)
     while (1)
     {
         // Add your application code
-        ClrWdt();        
+        //ClrWdt();        
         CAN_BUSRecovery();
     //    __delay_ms(1);
         if(Flag2._10ms){
